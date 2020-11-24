@@ -1,0 +1,2 @@
+# chappy
+Automatic video chapterization.
