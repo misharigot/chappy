@@ -60,3 +60,4 @@ def test_segmentize(youtube_video):
         {"segment_number": 10, "starts_at_index": 281},
     ]
     actual = youtube_video.segmentize(10)
+    assert actual == expected
