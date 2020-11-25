@@ -30,13 +30,19 @@ optional arguments:
 1. Run the container in the background and mount the repo.
 
     ```bash
-    docker run -d -v /Users/misha/cs/wdps/chappy:/app/chappy chappy:latest bash
+    docker run -dit -v /Users/misha/cs/wdps/chappy:/app/chappy chappy:latest bash
     ```
 
 1. Get into the container's shell.
 
     ```bash
     docker exec -it <container-name> bash
+    ```
+
+1. Set the working directory to the chappy folder.
+
+    ```
+    cd chappy
     ```
 
 1. Install Poetry dependencies (+ dev deps) from `pyproject.toml`.
