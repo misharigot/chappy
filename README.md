@@ -36,3 +36,11 @@ Automatic video chapterization.
     ```bash
     poetry run pytest
     ```
+
+### Adding packages to your env
+
+Use poetry for this. Example:
+
+```bash
+poetry add pandas
+```
