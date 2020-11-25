@@ -14,7 +14,7 @@ class SimpleSegmentizer:
 
     def _split(self) -> List[float]:
         # to get n_parts, we need n_parts + 1 time stamps
-        n_parts = self.n_parts + 1
+        n_parts = self.n_parts
         part_duration = self.youtube_video.duration / n_parts
         parts = []
         for i in range(n_parts):

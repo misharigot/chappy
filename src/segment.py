@@ -16,7 +16,7 @@ class Segment:
         self.ends_at: float = body[-1]["start"] + body[-1]["duration"]
 
     def get_starts_at_in_minutes(self):
-        return format(round(self.starts_at / 60, 2), '.2f')
+        return format(round(self.starts_at / 60, 2), ".2f")
 
     def get_text(self):
         result = ""

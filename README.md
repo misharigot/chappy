@@ -1,6 +1,24 @@
 # chappy
 Automatic video chapterization.
 
+## Usage
+
+```
+usage: app.py [-h] [--word-count WORD_COUNT] [--chapters CHAPTERS] URL
+
+Chapterize a YouTube video.
+
+positional arguments:
+  URL                   The URL of the YouTube video to chapterize
+
+optional arguments:
+  -h, --help            show this help message and exit
+  --word-count WORD_COUNT, -w WORD_COUNT
+                        Number of words in the summary for each section.
+  --chapters CHAPTERS, -c CHAPTERS
+                        Number of chapters to return.
+```
+
 ## Development guide
 
 1. Build the container.
