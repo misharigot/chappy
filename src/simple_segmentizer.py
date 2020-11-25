@@ -19,13 +19,13 @@ class SimpleSegmentizer:
         parts = []
         for i in range(n_parts):
             if i == 0:
-                parts.append(0)
+                parts.append(0.0)
             else:
                 parts.append(round(parts[i - 1] + part_duration, 2))
         return parts
 
     def _get_segment_indices(self) -> List[Dict]:
-        """Create n_parts segments with the start time given for each segment.
+        """Create [n_parts] segment indices with the start- and end index given for each segment.
 
         Returns:
             List[Dict]: List of segment dicts in the form of

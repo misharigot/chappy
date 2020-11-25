@@ -1,6 +1,6 @@
 import sys
 
-from chapterizator import Chapterizator
+from chapterizer import Chapterizer
 
 
 def main():
@@ -8,7 +8,7 @@ def main():
         raise ValueError("No argument given.")
     arg = sys.argv[1]
 
-    chappy = Chapterizator(url=arg)
+    chappy = Chapterizer(url=arg, summary_word_count=30)
     chappy.chapterize()
     chappy.print()
 

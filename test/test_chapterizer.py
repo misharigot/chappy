@@ -5,7 +5,7 @@ from chapterizer import Chapterizer
 @pytest.fixture
 def chapterizer():
     url = "https://www.youtube.com/watch?v=Hu4Yvq-g7_Y"
-    chapterizer = Chapterizer(url)
+    chapterizer = Chapterizer(url, summary_word_count=30)
     return chapterizer
 
 

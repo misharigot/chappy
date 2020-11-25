@@ -1,9 +1,10 @@
+from gensim.summarization.summarizer import summarize as gensim_summarize
+
+
 class Summarizer:
     """Able to summarize a piece of text."""
-
-    def summarize_segment(self, segment):
-        pass
-
+    def __init__(self, word_count=30):
+        self.word_count = word_count
 
     def summarize(self, text: str):
-        return text
+        return gensim_summarize(text, word_count=self.word_count)
