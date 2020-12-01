@@ -33,3 +33,38 @@ def test_duration(youtube_video):
     actual = youtube_video.duration
     expected = 950.35
     assert actual == expected
+
+def test_auto_generated_transcript_should_be_punctuated(youtube_video):
+  youtube_video.transcript = [{
+            "text": "but when we become less stimulated when we make our mind more calm",
+            "start": 932.473,
+            "duration": 5.082,
+        },
+        {
+            "text": "we get the benefits of added productivity and focus and ideas and creativity",
+            "start": 937.555,
+            "duration": 3.719,
+        },
+        {
+            "text": "but we also live a better life because of it",
+            "start": 941.274,
+            "duration": 3.699,
+        }]
+
+  expected = [{
+            "text": "But when we become less stimulated when we make our mind more calm,",
+            "start": 932.473,
+            "duration": 5.082,
+        },
+        {
+            "text": "we get the benefits of added productivity and focus and ideas and creativity.",
+            "start": 937.555,
+            "duration": 3.719,
+        },
+        {
+            "text": "But we also live a better life because of it.",
+            "start": 941.274,
+            "duration": 3.699,
+        }]
+  youtube_video._transcribe()
+  assert youtube_video.transcript == expected
