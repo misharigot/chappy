@@ -51,6 +51,11 @@ optional arguments:
     poetry install
     ```
 
+1. Install the pretrained Neural Network to punctuate text
+    ```bash
+    download-model.sh
+    ```
+
 2. Run it or run the tests.
 
     ```bash
