@@ -1,8 +1,6 @@
 from typing import Dict, List
 import re
 
-punctuator_model = Punctuator('./punctuator/INTERSPEECH-T-BRNN.pcl') #use pretrained model
-
 class Segment:
     def __init__(self, body: List[Dict]):
         """[summary]
@@ -26,7 +24,3 @@ class Segment:
             result += item["text"] + " "
         return str.strip(result.replace("\n", " "))
 
-    def punctuate_text(self, text):
-        global punctuator_model
-        text = re.sub("\[[^\]]*\]","",text) #remove comments between [] i.e. [applause]
-        return punctuator_model.punctuate(text)
