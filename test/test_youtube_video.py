@@ -66,5 +66,5 @@ def test_auto_generated_transcript_should_be_punctuated(youtube_video):
             "start": 941.274,
             "duration": 3.699,
         }]
-  youtube_video._transcribe()
+  youtube_video._punctuate(youtube_video.transcript)
   assert youtube_video.transcript == expected

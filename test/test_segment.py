@@ -44,6 +44,3 @@ def test_get_text(segment):
     print(actual)
     assert actual == expected
 
-
-def test_punctuate():
-    pass
