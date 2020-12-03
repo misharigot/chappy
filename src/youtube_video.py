@@ -6,8 +6,9 @@ from pathlib import Path
 from youtube_transcript_api import YouTubeTranscriptApi
 from punctuator import Punctuator
 
-model = str(Path('punctuator/INTERSPEECH-T-BRNN.pcl').resolve())
-punctuator_model = Punctuator(model) #use pretrained model
+model = str(Path("punctuator/INTERSPEECH-T-BRNN.pcl").resolve())
+punctuator_model = Punctuator(model)  # use pretrained model
+
 
 class YoutubeVideo:
     """A YouTube video with its transcript."""
@@ -30,10 +31,10 @@ class YoutubeVideo:
         transcript_list = YouTubeTranscriptApi.list_transcripts(self.id)
         print("transcript: ", transcript)
         try:
-            print("find man created transcript:",transcript_list.find_manually_created_transcript(['en']))  
+            transcript_list.find_manually_created_transcript(["en"])
         except:
             punctuated_transcript = self._punctuate(transcript)
-            print("Punctuated shizzle:", punctuated_transcript)
+
             return punctuated_transcript
 
         return transcript
@@ -43,10 +44,10 @@ class YoutubeVideo:
         duration = last_transcript_item["start"] + last_transcript_item["duration"]
         return round(duration, 2)
 
-    def _get_text_string(self,transcript):
+    def _get_text_string(self, transcript):
         subs_list = []
         for subs in transcript:
-            subs_list.append(subs['text'])
+            subs_list.append(subs["text"])
             text = " ".join(subs_list)
         return text
 
@@ -60,8 +61,8 @@ class YoutubeVideo:
 
         i = 0
         for line in transcript:
-            line_length = len(line['text'].split(" "))
-            line['text'] = " ".join(punctuated_list[i:i+line_length])
+            line_length = len(line["text"].split(" "))
+            line["text"] = " ".join(punctuated_list[i : i + line_length])
             i += line_length
 
         return transcript
