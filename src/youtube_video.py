@@ -29,7 +29,7 @@ class YoutubeVideo:
     def _get_transcript(self) -> List[Dict]:
         transcript = YouTubeTranscriptApi.get_transcript(self.id)
         transcript_list = YouTubeTranscriptApi.list_transcripts(self.id)
-        print("transcript: ", transcript)
+
         try:
             transcript_list.find_manually_created_transcript(["en"])
         except:
