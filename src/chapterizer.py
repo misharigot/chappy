@@ -20,7 +20,12 @@ class Chapterizer:
         print(f"Processing: {self.url}")
         chapters = []
         for segment in self.segmentizer.generate_segments():
-            summary = self.summarizer.summarize(segment.get_text())
+            try:
+                summary = self.summarizer.summarize(segment.get_text())
+                if summary == "":
+                    summary = segment.get_text()
+            except ValueError:
+                summary = segment.get_text()
             chapter = Chapter(segment=segment, summary=summary)
             chapters.append(chapter)
         self.chapters = chapters

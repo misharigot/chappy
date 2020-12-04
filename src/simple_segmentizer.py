@@ -65,7 +65,8 @@ class SimpleSegmentizer:
         for index, approximate_split in enumerate(approximate_splits):
             transcript = self.youtube_video.transcript
             segment = get_closest_segment(index, approximate_split, transcript)
-            segments.append(segment)
+            if segment is not None:
+                segments.append(segment)
 
         segments = add_ends_at(segments, transcript)
         return segments
@@ -76,4 +77,5 @@ class SimpleSegmentizer:
             start = segment_index["starts_at_index"]
             end = segment_index["ends_at_index"]
             body = self.youtube_video.transcript[start:end]
-            yield Segment(body)
+            if len(body) > 0:
+                yield Segment(body)

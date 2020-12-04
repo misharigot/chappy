@@ -39,6 +39,10 @@ RUN apt-get update \
 # Install Poetry
 RUN curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python -
 
+# Change dir
 WORKDIR /app
+
+COPY ./download-model.sh /app/chappy/download-model.sh
+RUN ./download-model.sh
 
 CMD bash

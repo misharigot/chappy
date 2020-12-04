@@ -34,8 +34,10 @@ def test_duration(youtube_video):
     expected = 950.35
     assert actual == expected
 
+
 def test_auto_generated_transcript_should_be_punctuated(youtube_video):
-  youtube_video.transcript = [{
+    youtube_video.transcript = [
+        {
             "text": "but when we become less stimulated when we make our mind more calm",
             "start": 932.473,
             "duration": 5.082,
@@ -49,9 +51,11 @@ def test_auto_generated_transcript_should_be_punctuated(youtube_video):
             "text": "but we also live a better life because of it",
             "start": 941.274,
             "duration": 3.699,
-        }]
+        },
+    ]
 
-  expected = [{
+    expected = [
+        {
             "text": "But when we become less stimulated when we make our mind more calm,",
             "start": 932.473,
             "duration": 5.082,
@@ -65,6 +69,41 @@ def test_auto_generated_transcript_should_be_punctuated(youtube_video):
             "text": "But we also live a better life because of it.",
             "start": 941.274,
             "duration": 3.699,
-        }]
-  youtube_video._punctuate(youtube_video.transcript)
-  assert youtube_video.transcript == expected
+        },
+    ]
+    youtube_video._punctuate(youtube_video.transcript)
+    assert youtube_video.transcript == expected
+
+
+def test_auto_generated_transcript_should_be_punctuated_2():
+    youtube_video = YoutubeVideo("https://www.youtube.com/watch?v=G7RgN9ijwE4")
+
+    expected = [
+        {
+            "text": "Have you ever had a dreams that that you?",
+            "start": 0.319,
+            "duration": 8.2,
+        },
+        {
+            "text": "Um, you add you do what you could you? Do",
+            "start": 4.859,
+            "duration": 7.32,
+        },
+        {
+            "text": "you it? You want you you could do so you",
+            "start": 8.519,
+            "duration": 6.961,
+        },
+        {
+            "text": "you do you could use you want you want",
+            "start": 12.179,
+            "duration": 5.43,
+        },
+        {
+            "text": "them to do you so much. You could do",
+            "start": 15.48,
+            "duration": 4.49,
+        },
+        {"text": "anything.", "start": 17.609, "duration": 2.361},
+    ]
+    assert youtube_video.transcript == expected
