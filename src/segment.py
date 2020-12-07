@@ -1,4 +1,5 @@
 from typing import Dict, List
+import math
 
 
 class Segment:
@@ -21,7 +22,10 @@ class Segment:
             raise ValueError("Body does not contain any elements.")
 
     def get_starts_at_in_minutes(self):
-        return format(round(self.starts_at / 60, 2), ".2f")
+        starts_at_seconds = round(self.starts_at)
+        number_minutes = math.floor(starts_at_seconds / 60)
+        number_seconds = starts_at_seconds % 60
+        return str(number_minutes) + "." + str(number_seconds)
 
     def get_text(self):
         result = ""
