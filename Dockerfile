@@ -1,6 +1,6 @@
 FROM python:3.8.1-slim
 
-    # python
+# Set env variables
 ENV PYTHONUNBUFFERED=1 \
     # prevents python creating .pyc files
     PYTHONDONTWRITEBYTECODE=1 \
@@ -26,9 +26,10 @@ ENV PYTHONUNBUFFERED=1 \
     PYSETUP_PATH="/opt/pysetup" \
     VENV_PATH="/opt/pysetup/.venv"
 
-# prepend poetry and venv to path
+# Prepend poetry and venv to path
 ENV PATH="$POETRY_HOME/bin:$VENV_PATH/bin:$PATH"
 
+# Install packages with apt
 RUN apt-get update \
     && apt-get install --no-install-recommends -y \
         # deps for installing poetry
@@ -40,9 +41,14 @@ RUN apt-get update \
 RUN curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python -
 
 # Change dir
-WORKDIR /app
+WORKDIR /app/chappy
 
-COPY ./download-model.sh /app/chappy/download-model.sh
+COPY . .
+
+# Install dependencies with Poetry
+RUN poetry install
+
+# Download and install punctuator model
 RUN ./download-model.sh
 
 CMD bash

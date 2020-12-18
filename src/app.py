@@ -1,4 +1,3 @@
-import sys
 import argparse
 
 from chapterizer import Chapterizer
@@ -27,10 +26,13 @@ def main():
 
     args = parser.parse_args()
 
-    chappy = Chapterizer(url=args.url, summary_word_count=args.word_count)
-    chappy.segmentizer = SimpleSegmentizer(chappy.youtube_video, n_parts=args.chapters)
-    chappy.chapterize()
-    chappy.print()
+    # Initialize Chapterizer
+    chappy = Chapterizer(summary_word_count=args.word_count, number_of_chapters=args.chapters)
+    chappy.segmentizer = SimpleSegmentizer(n_parts=args.chapters)
+
+    # Chapterize YouTube video
+    chapterized_youtube_video = chappy.chapterize(url=args.url)
+    chapterized_youtube_video.print_chapters()
 
 
 if __name__ == "__main__":

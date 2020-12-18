@@ -1,5 +1,5 @@
 import pytest
-from segment import Segment
+from data_objects.segment import Segment
 
 
 @pytest.fixture
