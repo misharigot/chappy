@@ -1,5 +1,5 @@
 from nltk import word_tokenize, pos_tag
-from nltk.corpus import wordnet as wn
+from nltk.corpus import wordnet
 import nltk
 
 class WordnetSentenceSimilarity:
@@ -18,7 +18,7 @@ class WordnetSentenceSimilarity:
     
     def _get_synset(self, word, tag):
         try:
-            return wn.synsets(word, self._penn_to_wn(tag))[0]
+            return wordnet.synsets(word, self._penn_to_wn(tag))[0]
         except:
             return None
     
