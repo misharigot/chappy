@@ -1,5 +1,5 @@
 import pytest
-from segment import Segment
+from data_objects.segment import Segment
 
 
 @pytest.fixture
@@ -43,7 +43,3 @@ def test_get_text(segment):
     actual = segment.get_text()
     print(actual)
     assert actual == expected
-
-
-def test_punctuate():
-    pass

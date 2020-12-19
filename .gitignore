@@ -129,3 +129,5 @@ dmypy.json
 .pyre/
 
 .vscode
+punctuator
+.DS_Store
