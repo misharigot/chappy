@@ -12,6 +12,7 @@ def segmentizer() -> SimpleSegmentizer:
     segmentizer = SimpleSegmentizer(n_parts=10)
     return segmentizer
 
+
 @pytest.fixture
 def transcribed_youtube_video() -> TranscribedYoutubeVideo:
     youtube_url_id = "Hu4Yvq-g7_Y"
@@ -30,7 +31,9 @@ def test_split(segmentizer, transcribed_youtube_video):
     assert len(actual) == n_parts
 
 
-def test_get_segment_indices(segmentizer: SimpleSegmentizer, transcribed_youtube_video: TranscribedYoutubeVideo):
+def test_get_segment_indices(
+    segmentizer: SimpleSegmentizer, transcribed_youtube_video: TranscribedYoutubeVideo
+):
     expected = [
         {"segment_number": 0, "starts_at_index": 0, "ends_at_index": 30},
         {"segment_number": 1, "starts_at_index": 30, "ends_at_index": 60},
@@ -47,7 +50,9 @@ def test_get_segment_indices(segmentizer: SimpleSegmentizer, transcribed_youtube
     assert actual == expected
 
 
-def test_generate_segments(segmentizer, transcribed_youtube_video: TranscribedYoutubeVideo):
+def test_generate_segments(
+    segmentizer, transcribed_youtube_video: TranscribedYoutubeVideo
+):
     actual: List[Segment] = []
     for segment in segmentizer.generate_segments(transcribed_youtube_video):
         actual.append(segment)

@@ -9,8 +9,4 @@ class Chapter:
         self.summary = summary
 
     def __str__(self):
-        return (
-            str(self.segment.get_starts_at_in_minutes()).replace(".", ":")
-            + " "
-            + self.summary
-        )
+        return self.segment.get_starts_at_in_minutes() + " " + self.summary

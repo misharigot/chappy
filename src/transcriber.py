@@ -7,14 +7,16 @@ from punctuator_model_provider import PunctuatorModelProvider
 
 class Transcriber:
     def __init__(self):
-        self.punctuator_model_provider: PunctuatorModelProvider = PunctuatorModelProvider()
+        self.punctuator_model_provider: PunctuatorModelProvider = (
+            PunctuatorModelProvider()
+        )
 
     def get_transcript(self, youtube_video_id) -> List[Dict]:
         transcript = YouTubeTranscriptApi.get_transcript(youtube_video_id)
         if not self._has_manually_created_transcript(youtube_video_id):
             return self._punctuate(transcript)
         return transcript
-    
+
     def _has_manually_created_transcript(self, youtube_video_id):
         transcript_list = YouTubeTranscriptApi.list_transcripts(youtube_video_id)
         try:

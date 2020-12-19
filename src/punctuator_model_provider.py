@@ -4,8 +4,8 @@ from pathlib import Path
 
 
 class PunctuatorModelProvider:
-    """Able to provide a punctuator model.
-    """
+    """Able to provide a punctuator model."""
+
     def __init__(self):
         self._punctuator_model: Optional[Punctuator] = None
 

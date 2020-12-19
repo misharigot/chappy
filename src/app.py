@@ -27,8 +27,10 @@ def main():
     args = parser.parse_args()
 
     # Initialize Chapterizer
-    chappy = Chapterizer(summary_word_count=args.word_count, number_of_chapters=args.chapters)
-    # chappy.segmentizer = SimpleSegmentizer(n_parts=args.chapters)
+    chappy = Chapterizer(
+        summary_word_count=args.word_count, number_of_chapters=args.chapters
+    )
+    chappy.segmentizer = SimpleSegmentizer(n_parts=args.chapters)
 
     # Chapterize YouTube video
     chapterized_youtube_video = chappy.chapterize(url=args.url)

@@ -32,7 +32,9 @@ class Chapterizer:
                 summary = segment.get_text()
             chapter = Chapter(segment=segment, summary=summary)
             chapters.append(chapter)
-        chapterized_youtube_video = ChapterizedYoutubeVideo(transcribed_youtube_video, chapters)
+        chapterized_youtube_video = ChapterizedYoutubeVideo(
+            transcribed_youtube_video, chapters
+        )
         print("Successfully chapterized!\n")
         return chapterized_youtube_video
 
