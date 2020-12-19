@@ -48,7 +48,7 @@ def test_get_starts_at_in_minutes():
     body = [{"text": "Some text", "start": 71.000, "duration": 1.56}]
     segment = Segment(body)
     actual = segment.get_starts_at_in_minutes()
-    expected = "1.11"
+    expected = "1:11"
     assert actual == expected
 
 
@@ -56,7 +56,7 @@ def test_get_starts_at_in_minutes_should_always_have_two_digits_after_point():
     body = [{"text": "Some text", "start": 0.000, "duration": 1.56}]
     segment = Segment(body)
     actual = segment.get_starts_at_in_minutes()
-    expected = "0.00"
+    expected = "0:00"
     assert actual == expected
 
 
@@ -64,5 +64,5 @@ def test_get_starts_at_in_minutes_should_always_have_two_digits_after_point_2():
     body = [{"text": "Some text", "start": 65.000, "duration": 1.56}]
     segment = Segment(body)
     actual = segment.get_starts_at_in_minutes()
-    expected = "1.05"
+    expected = "1:05"
     assert actual == expected

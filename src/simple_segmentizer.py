@@ -11,7 +11,9 @@ class SimpleSegmentizer:
     def __init__(self, n_parts=10):
         self.n_parts = n_parts
 
-    def generate_segments(self, youtube_video: TranscribedYoutubeVideo) -> Generator[Segment, None, None]:
+    def generate_segments(
+        self, youtube_video: TranscribedYoutubeVideo
+    ) -> Generator[Segment, None, None]:
         segment_indices = self._get_segment_indices(youtube_video)
         for segment_index in segment_indices:
             start = segment_index["starts_at_index"]
@@ -32,7 +34,9 @@ class SimpleSegmentizer:
                 parts.append(round(parts[i - 1] + part_duration, 2))
         return parts
 
-    def _get_segment_indices(self, youtube_video: TranscribedYoutubeVideo) -> List[Dict]:
+    def _get_segment_indices(
+        self, youtube_video: TranscribedYoutubeVideo
+    ) -> List[Dict]:
         """Create [n_parts] segment indices with the start- and end index given for each segment.
 
         Returns:
@@ -78,4 +82,3 @@ class SimpleSegmentizer:
 
         segments = add_ends_at(segments, transcript)
         return segments
-
