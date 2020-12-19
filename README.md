@@ -33,7 +33,7 @@ The following describes how to run the app in a Docker container by first buildi
     docker run -it chappy bash
 
     # Inside the container
-    $ poetry run python3 src/app.py <youtube URL>
+    $ poetry run python3 src/app.py 
     ```
 
 ## Development guide
@@ -66,7 +66,7 @@ You can re-use the above container and simply mount your locally checked-out rep
 1. Run it or run the tests.
 
     ```bash
-    poetry run python3 src/app.py https://www.youtube.com/watch?v=Hu4Yvq-g7_Y
+    poetry run python3 src/app.py
     ```
 
     ```bash
