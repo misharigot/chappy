@@ -1,5 +1,3 @@
-from typing import List, Optional
-
 from data_objects.chapter import Chapter
 from data_objects.chapterized_youtube_video import ChapterizedYoutubeVideo
 from data_objects.transcribed_youtube_video import TranscribedYoutubeVideo
@@ -28,6 +26,7 @@ class Chapterizer:
                     summary = segment.get_text()
             except ValueError:
                 summary = segment.get_text()
+            summary = summary.replace("\n", " ").replace("\r", "")
             chapter = Chapter(segment=segment, summary=summary)
             chapters.append(chapter)
         chapterized_youtube_video = ChapterizedYoutubeVideo(

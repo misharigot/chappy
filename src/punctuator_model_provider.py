@@ -20,4 +20,5 @@ class PunctuatorModelProvider:
             print("Loading punctuator model..")
             MODEL = str(Path("/app/chappy/punctuator/INTERSPEECH-T-BRNN.pcl").resolve())
             self._punctuator_model = Punctuator(MODEL)  # use pretrained model
+            print("Completed loading punctuator model.")
         return self._punctuator_model

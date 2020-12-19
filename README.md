@@ -4,12 +4,9 @@ Automatic video chapterization.
 ## Usage
 
 ```
-usage: app.py [-h] [--word-count WORD_COUNT] [--chapters CHAPTERS] URL
+usage: app.py [-h] [--word-count WORD_COUNT] [--chapters CHAPTERS]
 
 Chapterize a YouTube video.
-
-positional arguments:
-  URL                   The URL of the YouTube video to chapterize
 
 optional arguments:
   -h, --help            show this help message and exit

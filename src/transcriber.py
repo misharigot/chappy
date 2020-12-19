@@ -10,6 +10,7 @@ class Transcriber:
         self.punctuator_model_provider: PunctuatorModelProvider = (
             PunctuatorModelProvider()
         )
+        self.punctuator_model = self.punctuator_model_provider.get_punctuator_model()
 
     def get_transcript(self, youtube_video_id) -> List[Dict]:
         transcript = YouTubeTranscriptApi.get_transcript(youtube_video_id)
@@ -37,8 +38,7 @@ class Transcriber:
 
         text_string = self._get_text_string(transcript)
 
-        punctuator_model = self.punctuator_model_provider.get_punctuator_model()
-        punctuated_text = punctuator_model.punctuate(text_string)
+        punctuated_text = self.punctuator_model.punctuate(text_string)
         punctuated_list = [token for token in punctuated_text.split(" ")]
 
         i = 0
