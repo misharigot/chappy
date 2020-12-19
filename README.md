@@ -19,7 +19,29 @@ optional arguments:
                         Number of chapters to return.
 ```
 
+## Running in a Docker container
+
+The following describes how to run the app in a Docker container by first building the image from the `Dockerfile`.
+
+1. Build the container
+
+    ```bash
+    cd path/to/chappy
+    docker build -t chappy .
+    ```
+
+1. Run the container and run the app
+
+    ```bash
+    docker run -it chappy bash
+
+    # Inside the container
+    $ poetry run python3 src/app.py <youtube URL>
+    ```
+
 ## Development guide
+
+You can re-use the above container and simply mount your locally checked-out repository.
 
 1. Build the container.
 
@@ -27,31 +49,18 @@ optional arguments:
     docker build -t chappy .
     ```
 
-1. Run the container in the background and mount the repo.
+1. Run the container in the background and mount the local repo.
 
     ```bash
-    docker run -dit -v /Users/misha/cs/wdps/chappy:/app/chappy chappy:latest bash
+    docker run -dit -v /path/to/chappy:/app/chappy chappy:latest bash
     ```
 
-1. Get into the container's shell.
+2. Get into the container's shell.
 
     ```bash
     docker exec -it <container-name> bash
     ```
-
-1. Set the working directory to the chappy folder.
-
-    ```
-    cd chappy
-    ```
-
-1. Install Poetry dependencies (+ dev deps) from `pyproject.toml`.
-
-    ```bash
-    poetry install
-    ```
-
-2. Run it or run the tests.
+3. Run it or run the tests.
 
     ```bash
     poetry run python3 src/app.py https://www.youtube.com/watch?v=Hu4Yvq-g7_Y

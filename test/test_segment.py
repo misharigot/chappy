@@ -1,5 +1,5 @@
 import pytest
-from segment import Segment
+from data_objects.segment import Segment
 
 
 @pytest.fixture
@@ -41,9 +41,28 @@ def segment():
 def test_get_text(segment):
     expected = "build up and accumulate to create a life that feels more distracted and overwhelming, like we don't have a clear direction. But when we become less stimulated, when we make our mind more calm, we get the benefits of added productivity and focus and ideas and creativity, but we also live a better life because of it. Thank you so much. (Applause)"
     actual = segment.get_text()
-    print(actual)
     assert actual == expected
 
 
-def test_punctuate():
-    pass
+def test_get_starts_at_in_minutes():
+    body = [{"text": "Some text", "start": 71.000, "duration": 1.56}]
+    segment = Segment(body)
+    actual = segment.get_starts_at_in_minutes()
+    expected = "1.11"
+    assert actual == expected
+
+
+def test_get_starts_at_in_minutes_should_always_have_two_digits_after_point():
+    body = [{"text": "Some text", "start": 0.000, "duration": 1.56}]
+    segment = Segment(body)
+    actual = segment.get_starts_at_in_minutes()
+    expected = "0.00"
+    assert actual == expected
+
+
+def test_get_starts_at_in_minutes_should_always_have_two_digits_after_point_2():
+    body = [{"text": "Some text", "start": 65.000, "duration": 1.56}]
+    segment = Segment(body)
+    actual = segment.get_starts_at_in_minutes()
+    expected = "1.05"
+    assert actual == expected

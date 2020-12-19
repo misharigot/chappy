@@ -1,4 +1,4 @@
-from segment import Segment
+from data_objects.segment import Segment
 
 
 class Chapter:

@@ -1,35 +1,41 @@
 from typing import List, Optional
 
-from chapter import Chapter
+from data_objects.chapter import Chapter
+from data_objects.chapterized_youtube_video import ChapterizedYoutubeVideo
+from data_objects.transcribed_youtube_video import TranscribedYoutubeVideo
+from data_objects.youtube_video import YoutubeVideo
 from simple_segmentizer import SimpleSegmentizer
+from advanced_segmentizer import AdvancedSegmentizer
 from summarizer import Summarizer
-from youtube_video import YoutubeVideo
+from transcriber import Transcriber
 
 
 class Chapterizer:
     """Able to chapterize a YoutubeVideo. A chapter is a segment and its summary."""
 
-    def __init__(self, url, summary_word_count):
-        self.url = url
-        self.youtube_video: YoutubeVideo = YoutubeVideo(url)
-        self.segmentizer = SimpleSegmentizer(self.youtube_video)
+    def __init__(self, summary_word_count=30, number_of_chapters=10):
+        self.transcriber = Transcriber()
+        self.segmentizer = SimpleSegmentizer(n_parts=number_of_chapters)
         self.summarizer = Summarizer(word_count=summary_word_count)
-        self.chapters: Optional[List[Chapter]] = None
 
-    def chapterize(self) -> None:
-        print(f"Processing: {self.url}")
+    def chapterize(self, url) -> ChapterizedYoutubeVideo:
+        print(f"Processing: {url}")
+        transcribed_youtube_video = self._get_transcribed_youtube_video(url)
         chapters = []
-        for segment in self.segmentizer.generate_segments():
-            summary = self.summarizer.summarize(segment.get_text())
+        for segment in self.segmentizer.generate_segments(transcribed_youtube_video):
+            try:
+                summary = self.summarizer.summarize(segment.get_text())
+                if summary == "":
+                    summary = segment.get_text()
+            except ValueError:
+                summary = segment.get_text()
             chapter = Chapter(segment=segment, summary=summary)
             chapters.append(chapter)
-        self.chapters = chapters
+        chapterized_youtube_video = ChapterizedYoutubeVideo(transcribed_youtube_video, chapters)
         print("Successfully chapterized!\n")
+        return chapterized_youtube_video
 
-    def print(self):
-        if self.chapters is None:
-            print("No chapters found.")
-
-        print(f"Chapters for video: {self.url}\n-----\n")
-        for chapter in self.chapters:
-            print(chapter)
+    def _get_transcribed_youtube_video(self, url):
+        youtube_video: YoutubeVideo = YoutubeVideo(url)
+        transcript = self.transcriber.get_transcript(youtube_video.id)
+        return TranscribedYoutubeVideo(youtube_video.id, transcript)

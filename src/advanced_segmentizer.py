@@ -1,8 +1,9 @@
 from typing import Dict, List, Generator
 from nltk.tokenize import sent_tokenize
+import nltk
 
-from segment import Segment
-from youtube_video import YoutubeVideo
+from data_objects.segment import Segment
+from data_objects.transcribed_youtube_video import TranscribedYoutubeVideo
 from wordnet_sentence_similarity import WordnetSentenceSimilarity
 
 
@@ -10,12 +11,24 @@ class AdvancedSegmentizer:
     """Able to segmentize a YoutubeVideo based on the similarity between two following sentences.
     A segment is a subset of a transcript."""
 
-    def __init__(self, youtube_video: YoutubeVideo):
-        self.youtube_video = youtube_video
+    def __init__(self):
         self.wss = WordnetSentenceSimilarity()
 
-    def _get_end_sentence_segment(self) -> List[str]:
-        tokenized_text = sent_tokenize(self.youtube_video.text)
+    def generate_segments(self, youtube_video: TranscribedYoutubeVideo) -> Generator[Segment, None, None]:
+        end_sentences = self._get_end_sentence_segment(youtube_video)
+        start_index = 0
+        sentence_index = 0
+        for idx, transcript in enumerate(youtube_video.transcript):
+            transcript_text = transcript['text'].replace('\n', ' ')
+            end_sentence = end_sentences[sentence_index].split()
+            if transcript_text.find(" ".join(end_sentence[-3:])) != -1:
+                body = youtube_video.transcript[start_index:idx+1]
+                sentence_index += 1
+                start_index = idx+1
+                yield Segment(body)
+
+    def _get_end_sentence_segment(self, youtube_video: TranscribedYoutubeVideo) -> List[str]:
+        tokenized_text = sent_tokenize(self._get_text_string(youtube_video.transcript))
         end_sentences = []
         sentence_count = 0
         last_score = 0
@@ -37,27 +50,10 @@ class AdvancedSegmentizer:
         end_sentences.append(tokenized_text[-1])
         return end_sentences
 
-    def generate_segments(self) -> Generator[Segment, None, None]:
-        end_sentences = self._get_end_sentence_segment()
-        # print(end_sentences, len(end_sentences))
-        start_index = 0
-        sentence_index = 0
-        for idx, transcript in enumerate(self.youtube_video.transcript):
-            transcript_text = transcript['text'].replace('\n', ' ')
-            end_sentence = end_sentences[sentence_index].split()
-            # print(transcript, " ".join(end_sentence[-3:]))
-            if transcript_text.find(" ".join(end_sentence[-3:])) != -1:
-                body = self.youtube_video.transcript[start_index:idx+1]
-                sentence_index += 1
-                start_index = idx+1
-                # for text in body:
-                #     print(text['text'].replace('\n', ' '))
-                # print( '\n')
-                yield Segment(body)
-
-
-if __name__ == '__main__':
-    youtube = YoutubeVideo('https://www.youtube.com/watch?v=Hu4Yvq-g7_Y')
-    print('segmentize for: https://www.youtube.com/watch?v=Hu4Yvq-g7_Y')
-    seg = AdvancedSegmentizer(youtube)
-    seg.generate_segments()
+    def _get_text_string(self, transcript):
+        subs_list = []
+        for subs in transcript:
+            subtitle_text = subs["text"]
+            subs_list.append(subtitle_text.replace('\n', ' '))
+        text = " ".join(subs_list)
+        return text

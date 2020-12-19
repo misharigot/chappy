@@ -1,5 +1,6 @@
 from nltk import word_tokenize, pos_tag
 from nltk.corpus import wordnet as wn
+import nltk
 
 class WordnetSentenceSimilarity:
     def _penn_to_wn(self, tag):

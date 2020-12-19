@@ -9,8 +9,7 @@ python = "^3.8"
 youtube-transcript-api = "^0.3.1"
 gensim = "^3.8.3"
 nltk = "^3.5"
-transformers = "^4.0.1"
-tensorflow = "^2.4.0rc4"
+punctuator = "^0.9.6"
 
 [tool.poetry.dev-dependencies]
 pytest = "^6.1.2"
