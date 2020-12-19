@@ -24,7 +24,11 @@ class Segment:
     def get_starts_at_in_minutes(self):
         starts_at_seconds = round(self.starts_at)
         number_minutes = math.floor(starts_at_seconds / 60)
-        number_seconds = starts_at_seconds % 60
+        number_seconds = str(starts_at_seconds % 60)
+
+        def add_leading_zero_to_single_digit_seconds(seconds: str):
+            return number_seconds if not (len(number_seconds) == 1) else "0" + number_seconds
+        number_seconds = add_leading_zero_to_single_digit_seconds(number_seconds)
         return str(number_minutes) + "." + str(number_seconds)
 
     def get_text(self):
