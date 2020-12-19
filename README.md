@@ -49,18 +49,24 @@ You can re-use the above container and simply mount your locally checked-out rep
     docker build -t chappy .
     ```
 
+1. Download the punctuator model locally, since it will be mounted in the next step:
+
+    ```bash
+    ./download-model.sh
+    ```
+
 1. Run the container in the background and mount the local repo.
 
     ```bash
     docker run -dit -v /path/to/chappy:/app/chappy chappy:latest bash
     ```
 
-2. Get into the container's shell.
+1. Get into the container's shell.
 
     ```bash
     docker exec -it <container-name> bash
     ```
-3. Run it or run the tests.
+1. Run it or run the tests.
 
     ```bash
     poetry run python3 src/app.py https://www.youtube.com/watch?v=Hu4Yvq-g7_Y
