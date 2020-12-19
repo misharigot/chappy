@@ -17,11 +17,21 @@ class AdvancedSegmentizer:
     def _get_end_sentence_segment(self) -> List[str]:
         tokenized_text = sent_tokenize(self.youtube_video.text)
         end_sentences = []
+        sentence_count = 0
+        last_score = 0
         for i in range(len(tokenized_text)):
             if len(tokenized_text[i].split()) < 4 or len(tokenized_text[i+1].split()) < 4:
                 continue
-            if self.wss.sentence_similarity(*tokenized_text[i: i+2]) < 0.2:
+            current_score = self.wss.sentence_similarity(*tokenized_text[i: i+2])
+            sentence_count += 1
+            if current_score < 0.2 and sentence_count > 2:
                 end_sentences.append(tokenized_text[i])
+                sentence_count = 0
+            elif current_score < 0.2 and sentence_count <= 2:
+                if last_score > current_score:
+                    end_sentences[-1:] = [tokenized_text[i]]
+                    sentence_count = 0
+            last_score = current_score
             if i+2 == len(tokenized_text):
                 break
         end_sentences.append(tokenized_text[-1])
@@ -29,7 +39,7 @@ class AdvancedSegmentizer:
 
     def generate_segments(self) -> Generator[Segment, None, None]:
         end_sentences = self._get_end_sentence_segment()
-        # print(end_sentences)
+        # print(end_sentences, len(end_sentences))
         start_index = 0
         sentence_index = 0
         for idx, transcript in enumerate(self.youtube_video.transcript):
@@ -40,9 +50,10 @@ class AdvancedSegmentizer:
                 body = self.youtube_video.transcript[start_index:idx+1]
                 sentence_index += 1
                 start_index = idx+1
-                print(body)
-                print('\n')
-                # yield Segment(body)
+                # for text in body:
+                #     print(text['text'].replace('\n', ' '))
+                # print( '\n')
+                yield Segment(body)
 
 
 if __name__ == '__main__':
