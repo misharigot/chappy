@@ -49,7 +49,7 @@ You can re-use the above container and simply mount your locally checked-out rep
 1. Download the punctuator model locally, since it will be mounted in the next step:
 
     ```bash
-    ./download-model.sh
+    ./download_models.sh
     ```
 
 1. Run the container in the background and mount the local repo.

@@ -15,8 +15,11 @@ def main():
     parser.add_argument(
         "--chapters", "-c", default=10, type=int, help="Number of chapters to return."
     )
+    parser.add_argument("--debug", "-d", action='store_true', help="Activate debug mode.")
 
     args = parser.parse_args()
+
+    print("\n~~~~~~~~~~\nLoading Chappy, please wait.\n~~~~~~~~~~\n")
 
     # Initialize Chapterizer
     chappy = Chapterizer(
@@ -35,9 +38,10 @@ def main():
             try:
                 chapterized_youtube_video = chappy.chapterize(url=url)
                 chapterized_youtube_video.print_chapters()
-            except Exception:
+            except Exception as e:
+                if args.debug:
+                    raise e
                 print(f"Could not retrieve a transcript for the video {url}!")
-
 
 
 def print_chappy_splash_ascii():
