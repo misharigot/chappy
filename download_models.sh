@@ -22,4 +22,8 @@ import nltk
 nltk.download('wordnet')
 nltk.download('averaged_perceptron_tagger')
 nltk.download('punkt')
+
+from transformers import BartTokenizer, BartForConditionalGeneration
+BartForConditionalGeneration.from_pretrained('facebook/bart-large-cnn')
+BartTokenizer.from_pretrained('facebook/bart-large-cnn')
 "
