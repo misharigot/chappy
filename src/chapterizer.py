@@ -5,6 +5,7 @@ from data_objects.chapterized_youtube_video import ChapterizedYoutubeVideo
 from data_objects.transcribed_youtube_video import TranscribedYoutubeVideo
 from data_objects.youtube_video import YoutubeVideo
 from simple_segmentizer import SimpleSegmentizer
+from sentence_similarity_segmentizer import SentenceSimilaritySegmentizer
 from summarizer import Summarizer
 from transcriber import Transcriber
 
