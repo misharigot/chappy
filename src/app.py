@@ -35,7 +35,7 @@ def main():
 
     while True:
         urls = input(
-            "\n-----\nPlease provide one (or more, space seperated) YouTube URL(s) you wish to chapterize: "
+            "\n-----\nPlease provide one (or more, space seperated) YouTube video URL(s) you wish to chapterize: "
         ).split(" ")
 
         # Chapterize YouTube video
@@ -46,7 +46,7 @@ def main():
             except Exception as e:
                 if args.debug:
                     raise e
-                print(f"Could not retrieve a transcript for the video {url}!")
+                print(f"Could not generate chapters for video {url}. Use --debug for more information.")
 
 
 def print_chappy_splash_ascii():

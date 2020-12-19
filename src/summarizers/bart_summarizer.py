@@ -15,12 +15,12 @@ class BartSummarizer:
         print("Completed loading BartSummarizer models.\n")
 
     def summarize(self, text):
-        inputs = self.tokenizer([text], max_length=1024, return_tensors="pt")
+        inputs = self.tokenizer([text], max_length=1024, return_tensors="pt", truncation='longest_first')
         summary_ids = self.model.generate(
             inputs["input_ids"],
             num_beams=3,
             min_length=5,
-            length_penalty=2.0,
+            length_penalty=0.7,
             max_length=self.word_count,
             early_stopping=True,
         )
