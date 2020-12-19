@@ -19,7 +19,7 @@ class SentenceSimilaritySegmentizer:
     def __init__(self):
         print("Loading SentenceSimilaritySegmentizer models..")
         self.model = WordnetSentenceSimilarity()
-        nltk.download('punkt')
+        nltk.download("punkt")
         print("Completed loading SentenceSimilaritySegmentizer models.\n")
 
     def generate_segments(

@@ -15,7 +15,9 @@ def main():
     parser.add_argument(
         "--chapters", "-c", default=10, type=int, help="Number of chapters to return."
     )
-    parser.add_argument("--debug", "-d", action='store_true', help="Activate debug mode.")
+    parser.add_argument(
+        "--debug", "-d", action="store_true", help="Activate debug mode."
+    )
 
     args = parser.parse_args()
 

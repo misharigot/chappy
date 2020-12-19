@@ -4,10 +4,9 @@ from nltk.corpus import wordnet
 
 
 class WordnetSentenceSimilarity:
-
     def __init__(self):
-        nltk.download('wordnet')
-        nltk.download('averaged_perceptron_tagger')
+        nltk.download("wordnet")
+        nltk.download("averaged_perceptron_tagger")
 
     def _penn_to_wn(self, tag):
         """ Convert between a Penn Treebank tag to a simplified Wordnet tag """
