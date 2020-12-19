@@ -33,7 +33,7 @@ The following describes how to run the app in a Docker container by first buildi
 1. Run the container and run the app
 
     ```bash
-    docker run -it chappy bash
+    docker run -it -v /path/to/chappy:/app/chappy chappy bash
 
     # Inside the container
     $ poetry run python3 src/app.py <youtube URL>
