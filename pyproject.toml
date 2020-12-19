@@ -5,10 +5,11 @@ description = "Automatic video chapterization."
 authors = ["Your Name <you@example.com>"]
 
 [tool.poetry.dependencies]
-python = "^3.8"
+python = "^3.7"
 youtube-transcript-api = "^0.3.1"
 gensim = "^3.8.3"
 punctuator = "^0.9.6"
+torch = {url = "https://download.pytorch.org/whl/cpu/torch-1.7.1%2Bcpu-cp37-cp37m-linux_x86_64.whl"}
 
 [tool.poetry.dev-dependencies]
 pytest = "^6.1.2"
