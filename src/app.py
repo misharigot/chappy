@@ -19,6 +19,9 @@ def main():
 
     args = parser.parse_args()
 
+    if args.debug:
+        print("\n##### RUNNING IN DEBUG MODE #####\n")
+
     print("\n~~~~~~~~~~\nLoading Chappy, please wait.\n~~~~~~~~~~\n")
 
     # Initialize Chapterizer

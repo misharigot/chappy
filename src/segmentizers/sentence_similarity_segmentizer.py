@@ -17,8 +17,10 @@ class SentenceSimilaritySegmentizer:
     SEGMENT_SPLIT_SCORE = 0.2
 
     def __init__(self):
+        print("Loading SentenceSimilaritySegmentizer models..")
         self.model = WordnetSentenceSimilarity()
         nltk.download('punkt')
+        print("Completed loading SentenceSimilaritySegmentizer models.\n")
 
     def generate_segments(
         self, youtube_video: TranscribedYoutubeVideo
