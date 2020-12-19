@@ -49,6 +49,6 @@ COPY . .
 RUN poetry install
 
 # Download and install punctuator model
-RUN ./download-model.sh
+RUN ./download_models.sh
 
 CMD bash

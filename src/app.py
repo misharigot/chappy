@@ -1,18 +1,10 @@
 import argparse
 
 from chapterizer import Chapterizer
-from simple_segmentizer import SimpleSegmentizer
 
 
 def main():
-
     parser = argparse.ArgumentParser(description="Chapterize a YouTube video.")
-    parser.add_argument(
-        "url",
-        metavar="URL",
-        type=str,
-        help="The URL of the YouTube video to chapterize",
-    )
     parser.add_argument(
         "--word-count",
         "-w",
@@ -23,18 +15,51 @@ def main():
     parser.add_argument(
         "--chapters", "-c", default=10, type=int, help="Number of chapters to return."
     )
+    parser.add_argument(
+        "--debug", "-d", action="store_true", help="Activate debug mode."
+    )
 
     args = parser.parse_args()
+
+    if args.debug:
+        print("\n##### RUNNING IN DEBUG MODE #####\n")
+
+    print("\n~~~~~~~~~~\nLoading Chappy, please wait.\n~~~~~~~~~~\n")
 
     # Initialize Chapterizer
     chappy = Chapterizer(
         summary_word_count=args.word_count, number_of_chapters=args.chapters
     )
-    chappy.segmentizer = SimpleSegmentizer(n_parts=args.chapters)
 
-    # Chapterize YouTube video
-    chapterized_youtube_video = chappy.chapterize(url=args.url)
-    chapterized_youtube_video.print_chapters()
+    print_chappy_splash_ascii()
+
+    while True:
+        urls = input(
+            "\n-----\nPlease provide one (or more, space seperated) YouTube URL(s) you wish to chapterize: "
+        ).split(" ")
+
+        # Chapterize YouTube video
+        for url in urls:
+            try:
+                chapterized_youtube_video = chappy.chapterize(url=url)
+                chapterized_youtube_video.print_chapters()
+            except Exception as e:
+                if args.debug:
+                    raise e
+                print(f"Could not retrieve a transcript for the video {url}!")
+
+
+def print_chappy_splash_ascii():
+    print(
+        """
+   ________                           
+  / ____/ /_  ____ _____  ____  __  __
+ / /   / __ \/ __ `/ __ \/ __ \/ / / /
+/ /___/ / / / /_/ / /_/ / /_/ / /_/ / 
+\____/_/ /_/\__,_/ .___/ .___/\__, /  
+                /_/   /_/    /____/   
+    """
+    )
 
 
 if __name__ == "__main__":

@@ -4,12 +4,9 @@ Automatic video chapterization.
 ## Usage
 
 ```
-usage: app.py [-h] [--word-count WORD_COUNT] [--chapters CHAPTERS] URL
+usage: app.py [-h] [--word-count WORD_COUNT] [--chapters CHAPTERS]
 
 Chapterize a YouTube video.
-
-positional arguments:
-  URL                   The URL of the YouTube video to chapterize
 
 optional arguments:
   -h, --help            show this help message and exit
@@ -52,7 +49,7 @@ You can re-use the above container and simply mount your locally checked-out rep
 1. Download the punctuator model locally, since it will be mounted in the next step:
 
     ```bash
-    ./download-model.sh
+    ./download_models.sh
     ```
 
 1. Run the container in the background and mount the local repo.

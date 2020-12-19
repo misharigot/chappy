@@ -1,15 +1,18 @@
-from transformers import BartTokenizer, BartForConditionalGeneration, BartConfig
+from transformers import BartTokenizer, BartForConditionalGeneration
 
 
-class Summarizer:
+class BartSummarizer:
     """Able to summarize a piece of text."""
 
-    def __init__(self, max_length=20):
-        self.max_length = max_length  # length in amount of words! thus not characters
+    def __init__(self, word_count=20):
+        self.word_count = word_count  # length in amount of words! thus not characters
+
+        print("Loading BartSummarizer models..")
         self.model = BartForConditionalGeneration.from_pretrained(
             "facebook/bart-large-cnn"
         )
         self.tokenizer = BartTokenizer.from_pretrained("facebook/bart-large-cnn")
+        print("Completed loading BartSummarizer models.\n")
 
     def summarize(self, text):
         inputs = self.tokenizer([text], max_length=1024, return_tensors="pt")
@@ -18,7 +21,7 @@ class Summarizer:
             num_beams=3,
             min_length=5,
             length_penalty=2.0,
-            max_length=self.max_length,
+            max_length=self.word_count,
             early_stopping=True,
         )
         return " ".join(

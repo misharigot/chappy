@@ -18,6 +18,7 @@ class PunctuatorModelProvider:
         """
         if self._punctuator_model is None:
             print("Loading punctuator model..")
-            MODEL = str(Path("/app/chappy/punctuator/INTERSPEECH-T-BRNN.pcl").resolve())
-            self._punctuator_model = Punctuator(MODEL)  # use pretrained model
+            model = str(Path("/app/chappy/punctuator/INTERSPEECH-T-BRNN.pcl").resolve())
+            self._punctuator_model = Punctuator(model)  # use pretrained model
+            print("Completed loading punctuator model.\n")
         return self._punctuator_model

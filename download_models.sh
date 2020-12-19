@@ -15,3 +15,11 @@ curl -L -b cookies.txt -o $name \
 mv $name ./punctuator
 
 rm -f confirm.txt cookies.txt
+
+# Download models for sentence_similarity_segmentizer.py
+poetry run python3 -c "
+import nltk
+nltk.download('wordnet')
+nltk.download('averaged_perceptron_tagger')
+nltk.download('punkt')
+"
