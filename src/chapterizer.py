@@ -6,7 +6,8 @@ from data_objects.transcribed_youtube_video import TranscribedYoutubeVideo
 from data_objects.youtube_video import YoutubeVideo
 from simple_segmentizer import SimpleSegmentizer
 from sentence_similarity_segmentizer import SentenceSimilaritySegmentizer
-from summarizer import Summarizer
+# from summarizer import Summarizer
+from advanced_summarizer import Summarizer
 from transcriber import Transcriber
 
 
@@ -15,8 +16,8 @@ class Chapterizer:
 
     def __init__(self, summary_word_count=30, number_of_chapters=10):
         self.transcriber = Transcriber()
-        self.segmentizer = SimpleSegmentizer(n_parts=number_of_chapters)
-        self.summarizer = Summarizer(word_count=summary_word_count)
+        self.segmentizer = SentenceSimilaritySegmentizer()
+        self.summarizer = Summarizer()
 
     def chapterize(self, url) -> ChapterizedYoutubeVideo:
         print(f"Processing: {url}")

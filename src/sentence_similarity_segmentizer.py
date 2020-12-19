@@ -21,7 +21,7 @@ class SentenceSimilaritySegmentizer:
 
     def generate_segments(self, youtube_video: TranscribedYoutubeVideo) -> Generator[Segment, None, None]:
         print('Using Sentence similarity')
-        end_sentences = self._get_end_sentence_segment(youtube_video)
+        end_sentences = self._get_last_sentence_per_segment(youtube_video)
         start_index = 0
         sentence_index = 0
         for idx, item in enumerate(youtube_video.transcript):
